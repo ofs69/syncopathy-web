@@ -5,6 +5,8 @@ on:
 jobs:
   build-remote:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Pages Repo
         uses: actions/checkout@v4
