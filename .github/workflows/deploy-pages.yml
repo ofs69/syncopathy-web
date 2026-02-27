@@ -1,0 +1,32 @@
+name: Remote Build and Deploy
+on:
+  workflow_dispatch: # Allows you to trigger the build manually
+
+jobs:
+  build-remote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Flutter Source
+        uses: actions/checkout@v4
+        with:
+          repository: ofs69/syncopathy
+          path: flutter_source
+          ref: simple-web-version
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build WASM
+        working-directory: ./flutter_source
+        run: |
+          flutter pub get
+          flutter build web --wasm
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: flutter_source/build/web
+          branch: gh-pages # It's best to deploy to a separate branch like gh-pages
+          clean: true
