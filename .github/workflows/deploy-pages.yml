@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Pages Repo
-          uses: actions/checkout@v4
+        uses: actions/checkout@v4
           
       - name: Checkout Flutter Source
         uses: actions/checkout@v4
