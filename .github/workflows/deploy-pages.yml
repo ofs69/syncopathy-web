@@ -23,11 +23,15 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Build WASM
+      - name: Build JS
         working-directory: ./flutter_source
         run: |
           flutter pub get
-          flutter build web --release --base-href "/syncopathy-web/"
+          flutter build web --no-wasm-dry-run  --release --base-href "/syncopathy-web/"
+
+      - name: Cache Busting
+        run: |
+          sed -i 's/flutter_bootstrap.js/flutter_bootstrap.js?v=${{ github.run_id }}/g' flutter_source/build/web/index.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
