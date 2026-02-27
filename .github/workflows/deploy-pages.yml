@@ -27,7 +27,7 @@ jobs:
         working-directory: ./flutter_source
         run: |
           flutter pub get
-          flutter build web --wasm --release --base-href "/syncopathy-web/"
+          flutter build web --release --base-href "/syncopathy-web/"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
