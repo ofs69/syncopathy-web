@@ -23,11 +23,16 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Create config file
+        shell: bash
+        run: |
+          echo '{ "HANDY_APPLICATION_ID": "${{ secrets.HANDY_APPLICATION_ID }}" }' > config.json
+
       - name: Build JS
         working-directory: ./flutter_source
         run: |
           flutter pub get
-          flutter build web --no-wasm-dry-run  --release --base-href "/syncopathy-web/"
+          flutter build web --no-wasm-dry-run  --release --base-href "/syncopathy-web/" --dart-define-from-file=config.json
 
       - name: Cache Busting
         run: |
