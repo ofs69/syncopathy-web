@@ -30,6 +30,7 @@ jobs:
           channel: 'stable'
 
       - name: Create config file
+        working-directory: ./flutter_source
         shell: bash
         run: |
           echo '{ "HANDY_APPLICATION_ID": "${{ secrets.HANDY_APPLICATION_ID }}" }' > config.json
