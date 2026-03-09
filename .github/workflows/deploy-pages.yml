@@ -1,6 +1,12 @@
 name: Remote Build and Deploy
 on:
-  workflow_dispatch: # Allows you to trigger the build manually
+  workflow_dispatch:
+      inputs:
+        source_ref:
+          description: 'Enter ref for ofs69/syncpathy. Branch or tag'
+          required: true
+          default: 'main'
+          type: string
 
 jobs:
   build-remote:
@@ -16,7 +22,7 @@ jobs:
         with:
           repository: ofs69/syncopathy
           path: flutter_source
-          ref: simple-web-version
+          ref: ${{ inputs.source_ref }}
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
